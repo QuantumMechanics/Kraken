@@ -71,14 +71,14 @@ std::string hexStr_secret_key(unsigned char *data, int len)  //Return private ke
 
            std::string keepkeypair = keypair; //We keep the original HEX from keypair
 
-        std::string hashedkeys = sha256(keypair); //We use SHA256 to hash the private key HEX
+        std::string hashedkeys = sha256(keypair); //We use SHA256 to hash the Hex private key
         std::string twicehashedkeys = sha256(hashedkeys); //We hash the hash
         std::string checksum = twicehashedkeys.substr (0,8); //The first 4 bytes is checksum.
         std::string finalkeys = keepkeypair + checksum; //We add the checksum at the end of the original Hex
 
         mpz_class bigNumber = 0; //Declaration of BigNumber
 
-       bigNumber = hexaToBigNum(finalkeys); //Convert the HEX to BigNumber
+       bigNumber = hexaToBigNum(finalkeys); //Convert HEX to BigNumber
 
         std::string bigNum2base58 (mpz_class); //Convert BigNumber to Base58
 
@@ -109,9 +109,9 @@ std::string hexStr_kraken_address(unsigned char *data, int len) //Create KRAKEN 
   }
 
     std::string hexPublicKey = "04"+ s;
-    std::string hashedPublic = sha256(hexPublicKey); //We use SHA256 to hash the public key HEX
+    std::string hashedPublic = sha256(hexPublicKey); //We use SHA256 to hash the HEX public key
 
-    using namespace CryptoPP;
+    using namespace CryptoPP; //For RIPEMD160
 
     CryptoPP::RIPEMD160 hash;
     byte digest[ CryptoPP::RIPEMD160::DIGESTSIZE ];
@@ -137,13 +137,13 @@ std::string hexStr_kraken_address(unsigned char *data, int len) //Create KRAKEN 
 
         mpz_class bigNumberAddress = 0; //Declaration of BigNumber
 
-        bigNumberAddress = hexaToBigNum(checksumkey); //Convert the HEX to BigNumber
+        bigNumberAddress = hexaToBigNum(checksumkey); //Convert HEX to BigNumber
 
         std::string bigNum2base58 (mpz_class); //Convert BigNumber to Base58
 
-        std::string strBase58WIFAddress = bigNum2base58(bigNumberAddress); //Convert Base58 to WIF (Add "1"+ ... to show the leading 1, ignored by bigNum)
+        std::string strBase58WIFAddress = bigNum2base58(bigNumberAddress); //Convert Base58 to WIF
 
-        std::string Kraken_Address = "1" + strBase58WIFAddress;
+        std::string Kraken_Address = "1" + strBase58WIFAddress; //Add "1"+ ... to show the leading 1, ignored by bigNum)
 
         return Kraken_Address;
 }
@@ -168,8 +168,8 @@ void CreateKeys()
             ed25519_public_key pk;
             ed25519_publickey(sk, pk);
 
-           // sodium_init();
-
+            //Testing key conversion
+            //// sodium_init();
             //unsigned char curve25519_pk[crypto_scalarmult_curve25519_BYTES];
            // unsigned char curve25519_sk[crypto_scalarmult_curve25519_BYTES];
 
