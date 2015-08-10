@@ -56,7 +56,7 @@ std::string bigNum2base58 (mpz_class bigNumber)
     return base58string;
 }
 
-//RAND_bytes Hex conversion, changed a to h from lowercase to Uppercase
+//RAND_bytes Hex conversion
 char hexmap[] = {'0', '1', '2', '3', '4', '5', '6', '7',
                            '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
@@ -162,13 +162,15 @@ std::string hexStr_signature(unsigned char *data, int len) //Convert signature t
 
 void CreateKeys()
 {
-            ed25519_secret_key sk;
+            //Secret key
+            ed25519_secret_key sk; 
             randombytes_buf(sk, sizeof(ed25519_secret_key));
-
+            
+            //Public key
             ed25519_public_key pk;
             ed25519_publickey(sk, pk);
 
-            //Testing key conversion
+            //Just testing key conversion
             //// sodium_init();
             //unsigned char curve25519_pk[crypto_scalarmult_curve25519_BYTES];
            // unsigned char curve25519_sk[crypto_scalarmult_curve25519_BYTES];
