@@ -53,7 +53,9 @@ int main(int argc, char *argv[])
                 break;
         case 2:
             system("clear");
-            cout << "KRAKEN is an experiment made for educational purposes." << endl;
+            cout << "KRAKEN is an experiments made for educational purposes." << endl;
+            cout << "You are free to use, modify and sell this product." << endl;
+            cout << "This program comes with ABSOLUTELY NO WARRANTY !" << endl;
             cout << endl;
             cout << endl;
             cout << endl;
